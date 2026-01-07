@@ -13,3 +13,13 @@ The button state is read in the `app_process_action` function. This function is 
 When a push/release cycle is very rapid, it may occur while `sl_system_process_action` is being executed. In this case, it will not be seen by the application. This means that the application may miss some information about what is happening to the button. For this practice session, this is no big deal. In some real life systems, it can be catastrophic.
 
 We will see a better way to check button state changes later on.
+
+A sequence diagram exhibiting the problem is below. 
+
+```
+sl_system_process_action        ...xxxxxxxxxx       xxxxxxxxxx       xxxxxxxxxx
+app_process_action              ...          xxxxxxx          xxxxxxx          xxxxxxx
+button push                     ...         x                         x
+button release                  ...                   x                    x
+push and or release detected    ...            Y                Y                N
+```
